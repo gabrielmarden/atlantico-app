@@ -8,12 +8,14 @@ import { LoginComponent } from './components/login/login.component';
 import { FormComponent } from './components/form/form.component';
 import { EmailComponent } from './components/email/email.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
-  {path:'heroes',component: HomeComponent},
+  {path: '',component: HomeComponent, canActivate:[AuthGuard]},
   {path:'login',component:LoginComponent},
-  {path:'form',component: FormComponent},
-  {path:'email',component: EmailComponent}
+  {path:'form',component: FormComponent,canActivate:[AuthGuard]},
+  {path:'email',component: EmailComponent,canActivate:[AuthGuard]},
+  {path:'**',redirectTo:''}
 ];
 
 @NgModule({
