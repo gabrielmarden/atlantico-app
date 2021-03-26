@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user';
 import {Cookie} from 'ng2-cookies';
 import { retry, catchError } from 'rxjs/operators';
-import { userInfo } from 'os';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +17,8 @@ export class UserService {
   httpOptions = {headers:new HttpHeaders({'Content-type':'application/json',
   'Authorization': Cookie.get('jwttoken')})}
 
-  getUsers():Observable<User[]>{
-    return this.httpClient.get<User[]>(this.url,this.httpOptions)
-    .pipe(retry(2),catchError(this.handleError));
+  getUsers(){
+    return this.httpClient.get<User[]>(this.url);
   }
 
   getUserById(id:number):Observable<User>{
@@ -51,7 +49,7 @@ export class UserService {
     } else {
       errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
     }
-    console.log(errorMessage);
+
     return throwError(errorMessage);
   };
 }

@@ -1,33 +1,28 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ThrowStmt } from '@angular/compiler';
-import { Route } from '@angular/compiler/src/core';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Cookie } from 'ng2-cookies';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { User } from '../models/user';
+import { UserAuthenticated } from '../models/userAuthenticated';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<UserAuthenticated>;
+  public currentUser: Observable<UserAuthenticated>;
 
   constructor(private http:HttpClient){
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')||''));
+    this.currentUserSubject = new BehaviorSubject<UserAuthenticated>(JSON.parse(localStorage.getItem('currentUser')||'null'));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User{
+  public get currentUserValue(): UserAuthenticated{
     return this.currentUserSubject.value;
   }
 
   login(username: string,password: string){
-    return this.http.post<any>(`${environment.apiUrl}/authenticate`,{username,password})
+    return this.http.post<UserAuthenticated>(`http://localhost:8080/authenticate`,{username,password})
         .pipe(map(user=>{
           localStorage.setItem('currentUser',JSON.stringify(user));
           this.currentUserSubject.next(user);
@@ -37,7 +32,7 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next({} as User);
+    this.currentUserSubject.next({} as UserAuthenticated);
   }
 
 }

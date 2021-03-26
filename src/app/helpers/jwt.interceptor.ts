@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
 
-
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor{
 
@@ -12,14 +11,16 @@ export class JwtInterceptor implements HttpInterceptor{
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
         let currentUser = this.auth.currentUserValue;
-        if(currentUser && currentUser.token){
+        if(currentUser && currentUser.jwttoken){
+            console.log('OK')
             request = request.clone({
                 setHeaders:{
-                    Authorization: `Bearer ${currentUser.token}`
+                    Authorization: `Bearer ${currentUser.jwttoken}`
                 }
             })
-        }
 
+            console.log(request);
+        }
         return next.handle(request);
     }
 
