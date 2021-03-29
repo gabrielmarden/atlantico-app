@@ -1,4 +1,7 @@
 <div class="container mt-5">
+    <div>
+      <button (click)="newUser()" class="btn btn-success mb-4">Adicionar novo usuario</button>
+    </div>
     <div class="card list-car">
       <h5 class="card-header">Gerenciamento de Usuários</h5>
       <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
@@ -18,8 +21,8 @@
                 <td>{{user.login}}</td>
                 <td>{{user.email}}</td>
                 <td>
-                  <button type="button" class="btn btn-warning btn-sm" (click)="editUser(user)">Editar</button>
-                  <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteUser(user)">Deletar</button>
+                  <button *ngIf="isAdmin" type="button" class="btn btn-warning btn-sm" (click)="editUser(user)">Editar</button>
+                  <button *ngIf="isAdmin" type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteUser(user)">Deletar</button>
                   <button type="button" class="btn btn-success btn-sm ml-1" (click)="sendMessage(user)">Enviar mensagem</button>
                 </td>
               </tr>
