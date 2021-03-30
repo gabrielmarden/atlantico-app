@@ -26,7 +26,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User>{
-    return this.httpClient.put<User>(this.url+'/'+user.id,JSON.stringify(user));
+    return this.httpClient.put<User>(this.url+'/'+user.id,user);
   }
 
   deleteUser(user: User):Observable<User>{

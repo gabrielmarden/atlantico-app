@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <div>
+    <div *ngIf="isAdmin">
       <button (click)="newUser()" class="btn btn-success mb-4">Adicionar novo usuario</button>
     </div>
     <div class="card list-car">
