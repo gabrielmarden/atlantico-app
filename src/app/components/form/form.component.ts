@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,17 +12,27 @@ import { UserService } from 'src/app/services/user.service';
 export class FormComponent implements OnInit {
 
   user: User = {} as User;
-
-
-  constructor(private userService: UserService,private router:Router) { }
+  isNew: boolean = false;
+  constructor(
+    private userService: UserService,
+    private router:Router,
+    private activedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.user = history.state;
+    if(this.user.login==null) this.isNew = true;
   }
 
   saveUser(form: NgForm){
+    if(this.user.id){
+      this.userService.updateUser(this.user).subscribe(()=>{
+        this.cleanForm(form);
+      })
+    }else{
     this.userService.saveUser(this.user).subscribe(()=>{
       this.cleanForm(form);
     })
+    }
   }
 
   cleanForm(form: NgForm){
@@ -30,7 +40,6 @@ export class FormComponent implements OnInit {
     this.user = {} as User;
     this.router.navigate(["/"]);
   }
-
 
 
 }
