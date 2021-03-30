@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: '',component: HomeComponent, canActivate:[AuthGuard]},
   {path:'login',component:LoginComponent},
   {path:'form',component: FormComponent,canActivate:[AuthGuard]},
-  {path:'email',component: EmailComponent,canActivate:[AuthGuard]},
+  {path:'email/:destination',component: EmailComponent,canActivate:[AuthGuard]},
   {path:'**',redirectTo:''}
 ];
 

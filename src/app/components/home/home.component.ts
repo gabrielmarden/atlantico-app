@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   }
 
   editUser(user: User){
-
+    this.router.navigateByUrl('/form',{state:user});
   }
 
   deleteUser(user: User){
@@ -44,7 +44,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  sendMessage(user: User){}
+  sendMessage(user: User){
+    this.router.navigate(['/email/'+user.email]);
+  }
 
   newUser(){
     this.router.navigate(['/form']);
