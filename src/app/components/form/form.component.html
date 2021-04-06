@@ -4,31 +4,31 @@
     <div class="card-body">
         <form id="add-form" (ngSubmit)="f.form.valid && saveUser(f)" #f="ngForm" novalidate>
             <div class="form-group">
-                <label for="name">Nome</label>
+                <label for="name">Nome completo</label>
                 <input type="text" [(ngModel)]="user.name" #name="ngModel" id="name" name="name" required class="form-control" [ngClass]="{'is-invalid':f.submitted && name.invalid}" placeholder="Digite seu nome"/>
                 <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-                    <div *ngIf="name.errors?.required">Nome é obrigatório</div>
+                    <div *ngIf="name.errors?.required">Nome completo é obrigatório</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" [(ngModel)]="user.email" #email="ngModel" id="email" name="email" required class="form-control" [ngClass]="{'is-invalid':f.submitted && email.invalid}" placeholder="Digite seu email"/>
                 <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
-                    <div *ngIf="email.errors?.required">Email é obrigatório</div>
+                    <div *ngIf="email.errors?.required">Email válido é obrigatório</div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="login">Login</label>
                 <input type="text" [(ngModel)]="user.login" #login="ngModel" id="login" name="login" required class="form-control" [ngClass]="{'is-invalid':f.submitted && login.invalid}" placeholder="Digite seu login"/>
                 <div *ngIf="f.submitted && login.invalid" class="invalid-feedback">
-                    <div *ngIf="login.errors?.required">Login é obrigatório</div>
+                    <div *ngIf="login.errors?.required">Login/Username é obrigatório</div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Senha</label>
                 <input type="password" [(ngModel)]="user.password" #password="ngModel" id="password" name="password" required class="form-control" [ngClass]="{'is-invalid':f.submitted && password.invalid}" placeholder="Digite seu password"/>
                 <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
-                    <div *ngIf="password.errors?.required">Password é obrigatório</div>
+                    <div *ngIf="password.errors?.required">Senha é obrigatório</div>
                 </div>
             </div>
             <div class="form-group form-check">
